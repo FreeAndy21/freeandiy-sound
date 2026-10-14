@@ -67,7 +67,7 @@ pub const fn tokens(t: Tokens, dark: bool) -> Tokens {
             toolbar_bg: mix(PAPER, BLACK, 0.14),
             menu_bar: PAPER,
             text: BLACK,
-            text_dim: mix(PAPER, BLACK, 0.74),
+            text_dim: mix(PAPER, BLACK, 0.82),
             header_text: BLACK,
             accent: ROSE,
             accent_dark: mix(ROSE, BLACK, 0.25),
