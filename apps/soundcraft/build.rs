@@ -16,7 +16,7 @@ fn main() {
     res.set_icon("../../assets/app-icon/freeandiy-sound.ico")
         .set("ProductName", "FreeANDIY Sound")
         .set("FileDescription", "FreeANDIY Sound digital audio workstation")
-        .set("CompanyName", "Learning Machines LLC")
+        .set("CompanyName", "Free Andy Agency")
         .set("LegalCopyright", "Copyright (c) Free Andy Agency and the SoundCraft authors. MIT OR Apache-2.0.")
         .set("OriginalFilename", "freeandiy-sound.exe")
         .set("InternalName", "freeandiy-sound");

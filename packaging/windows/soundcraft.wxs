@@ -11,13 +11,13 @@
 <Wix xmlns="http://wixtoolset.org/schemas/v4/wxs">
   <Package
       Name="FreeANDIY Sound"
-      Manufacturer="Learning Machines LLC"
+      Manufacturer="Free Andy Agency"
       Version="$(var.Version)"
       UpgradeCode="14A0E25F-DEA0-4D67-8D7E-D51713506FF0"
       Scope="perMachine"
       Compressed="yes"
       Language="1033">
-    <SummaryInformation Description="FreeANDIY Sound digital audio workstation" Manufacturer="Learning Machines LLC" />
+    <SummaryInformation Description="FreeANDIY Sound digital audio workstation" Manufacturer="Free Andy Agency" />
     <!-- Same-version upgrades let successive pre-releases of one X.Y.Z replace each other
          (MSI versions are numeric, so 1.2.3-rc.1 and 1.2.3-rc.2 are both 1.2.3). -->
     <MajorUpgrade AllowSameVersionUpgrades="yes"
