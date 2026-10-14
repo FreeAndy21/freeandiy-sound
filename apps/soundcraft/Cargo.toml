@@ -5,7 +5,12 @@ version.workspace = true
 edition.workspace = true
 license.workspace = true
 publish = false
-default-run = "soundcraft"
+default-run = "freeandiy-sound"
+
+# FreeANDIY: the executable carries the product name; the package keeps upstream's.
+[[bin]]
+name = "freeandiy-sound"
+path = "src/main.rs"
 
 [lints]
 workspace = true

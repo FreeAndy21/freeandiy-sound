@@ -213,7 +213,11 @@ pub struct Tokens {
 }
 
 impl Tokens {
-    pub const DARK: Tokens = Tokens {
+    /// FreeANDIY restyles upstream's palettes in `crate::freeandiy::tokens`.
+    pub const DARK: Tokens = crate::freeandiy::tokens(Self::UPSTREAM_DARK, true);
+    pub const LIGHT: Tokens = crate::freeandiy::tokens(Self::UPSTREAM_LIGHT, false);
+
+    const UPSTREAM_DARK: Tokens = Tokens {
         window_bg: Color32::from_rgb(30, 30, 30),
         panel_bg: Color32::from_rgb(37, 37, 38),
         panel_bg2: Color32::from_rgb(44, 44, 45),
@@ -298,7 +302,7 @@ impl Tokens {
         slot_mark: Color32::from_rgb(159, 159, 159),
     };
 
-    pub const LIGHT: Tokens = Tokens {
+    const UPSTREAM_LIGHT: Tokens = Tokens {
         window_bg: Color32::from_rgb(184, 186, 190),
         panel_bg: Color32::from_rgb(204, 206, 210),
         panel_bg2: Color32::from_rgb(216, 218, 222),
@@ -466,6 +470,7 @@ pub fn apply(ctx: &egui::Context, light: bool) {
     v.widgets.inactive.fg_stroke.color = t.text;
     v.window_corner_radius = egui::CornerRadius::same(6);
     v.menu_corner_radius = egui::CornerRadius::same(4);
+    crate::freeandiy::visuals(&mut v);
     // Keep receiving native OS appearance changes even when our palette is manual. On macOS,
     // pinning egui's theme also pins the window appearance and hides later OS changes.
     ctx.set_theme(egui::ThemePreference::System);

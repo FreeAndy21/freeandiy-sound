@@ -127,6 +127,7 @@ pub fn definitions() -> FontDefinitions {
             family.push("system-hangul".into());
         }
     }
+    crate::freeandiy::ui_fonts(&mut fonts);
     fonts
 }
 

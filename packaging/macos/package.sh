@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 # Build, sign and (optionally) notarize the macOS release artifacts:
 #
-#   $DIST/soundcraft-<version>-macos-<arch>.dmg          SoundCraft.app on a drag-to-Applications DMG
-#   $DIST/soundcraft-cli-<version>-macos-<arch>.zip      the headless CLI
+#   $DIST/freeandiy-sound-<version>-macos-<arch>.dmg          FreeANDIY Sound.app on a drag-to-Applications DMG
+#   $DIST/freeandiy-sound-cli-<version>-macos-<arch>.zip      the headless CLI
 #
 # Usage: packaging/macos/package.sh [--arch universal|aarch64|x86_64] [--skip-build]
 #
@@ -39,9 +39,9 @@ export MACOSX_DEPLOYMENT_TARGET=11.0
 IDENTITY="${MACOS_SIGN_IDENTITY:--}"
 SHORT_VERSION="${VERSION%%-*}"
 WORK="$CARGO_TARGET_DIR/macos-package"
-APP="$WORK/SoundCraft.app"
-DMG="$DIST/soundcraft-$VERSION-macos-$ARCH.dmg"
-CLI_ZIP="$DIST/soundcraft-cli-$VERSION-macos-$ARCH.zip"
+APP="$WORK/FreeANDIY Sound.app"
+DMG="$DIST/freeandiy-sound-$VERSION-macos-$ARCH.dmg"
+CLI_ZIP="$DIST/freeandiy-sound-cli-$VERSION-macos-$ARCH.zip"
 
 NOTARIZE=0
 if [ "$IDENTITY" = "-" ]; then
@@ -52,7 +52,7 @@ else
   warn "macOS: APPLE_ID / APPLE_PASSWORD / APPLE_TEAM_ID incomplete; signed but not notarized"
 fi
 
-echo "==> SoundCraft $VERSION for macOS ($ARCH), identity: $IDENTITY, notarize: $NOTARIZE"
+echo "==> FreeANDIY Sound $VERSION for macOS ($ARCH), identity: $IDENTITY, notarize: $NOTARIZE"
 
 # ---- build -------------------------------------------------------------------------------------
 if [ "$SKIP_BUILD" = 0 ]; then
@@ -63,7 +63,7 @@ fi
 
 rm -rf "$WORK"
 mkdir -p "$WORK/bin"
-for bin in soundcraft soundcraft-cli; do
+for bin in freeandiy-sound freeandiy-sound-cli; do
   inputs=()
   for t in "${TARGETS[@]}"; do inputs+=("$CARGO_TARGET_DIR/$t/release/$bin"); done
   lipo -create -output "$WORK/bin/$bin" "${inputs[@]}"
@@ -97,12 +97,12 @@ notarize() {
   fi
 }
 
-# ---- SoundCraft.app ----------------------------------------------------------------------------
+# ---- FreeANDIY Sound.app ----------------------------------------------------------------------------
 echo "==> assembling $APP"
 mkdir -p "$APP/Contents/MacOS" "$APP/Contents/Resources"
 # Executable and icon carry the display name (CFBundleExecutable / CFBundleIconFile).
-cp "$WORK/bin/soundcraft" "$APP/Contents/MacOS/SoundCraft"
-cp "$ROOT/assets/app-icon/soundcraft.icns" "$APP/Contents/Resources/SoundCraft.icns"
+cp "$WORK/bin/freeandiy-sound" "$APP/Contents/MacOS/FreeANDIY Sound"
+cp "$ROOT/assets/app-icon/freeandiy-sound.icns" "$APP/Contents/Resources/FreeANDIY Sound.icns"
 sed -e "s/@VERSION@/$VERSION/g" -e "s/@SHORT_VERSION@/$SHORT_VERSION/g" \
   -e "s/@BUILD_SHA@/${SOUNDCRAFT_BUILD_SHA:-unknown}/g" \
   "$HERE/Info.plist.in" >"$APP/Contents/Info.plist"
@@ -115,13 +115,13 @@ xattr -cr "$APP"
 
 # Sign inside-out: nested code first, then the bundle itself (no --deep on the final signature).
 # Today the only nested code is the main executable; frameworks/helpers would be signed here too.
-sign --options runtime --entitlements "$HERE/entitlements.plist" "$APP/Contents/MacOS/SoundCraft"
+sign --options runtime --entitlements "$HERE/entitlements.plist" "$APP/Contents/MacOS/FreeANDIY Sound"
 sign --options runtime --entitlements "$HERE/entitlements.plist" "$APP"
 codesign --verify --strict --deep --verbose=2 "$APP"
 
 if [ "$NOTARIZE" = 1 ]; then
-  ditto -c -k --keepParent "$APP" "$WORK/SoundCraft-notarize.zip"
-  notarize "$WORK/SoundCraft-notarize.zip"
+  ditto -c -k --keepParent "$APP" "$WORK/FreeANDIY Sound-notarize.zip"
+  notarize "$WORK/FreeANDIY Sound-notarize.zip"
   xcrun stapler staple "$APP"
   xcrun stapler validate "$APP"
   spctl --assess --type execute -vvv "$APP"
@@ -131,7 +131,7 @@ fi
 echo "==> building $DMG"
 STAGE="$WORK/dmg"
 mkdir -p "$STAGE"
-ditto "$APP" "$STAGE/SoundCraft.app"
+ditto "$APP" "$STAGE/FreeANDIY Sound.app"
 ln -s /Applications "$STAGE/Applications"
 # Finder window layout: background, icon size and positions (packaging/macos/dmg/README.md).
 mkdir -p "$STAGE/.background"
@@ -157,7 +157,7 @@ hdiutil_retry() {
     sleep $((attempt * 10))
   done
 }
-hdiutil_retry create create -srcfolder "$STAGE" -volname "SoundCraft" -fs HFS+ -format UDZO -imagekey zlib-level=9 -ov "$DMG"
+hdiutil_retry create create -srcfolder "$STAGE" -volname "FreeANDIY Sound" -fs HFS+ -format UDZO -imagekey zlib-level=9 -ov "$DMG"
 sign "$DMG"
 codesign --verify --strict --verbose=2 "$DMG"
 # The app users get must still pass --strict: inside the finished image and after a ditto copy out
@@ -168,19 +168,19 @@ rm -rf "$MOUNT" "$COPY"
 mkdir -p "$MOUNT" "$COPY"
 hdiutil_retry attach attach -nobrowse -readonly -noautoopen -mountpoint "$MOUNT" "$DMG" >/dev/null
 dmg_ok=1
-codesign --verify --strict --deep --verbose=2 "$MOUNT/SoundCraft.app" || dmg_ok=0
+codesign --verify --strict --deep --verbose=2 "$MOUNT/FreeANDIY Sound.app" || dmg_ok=0
 if [ "$dmg_ok" = 1 ]; then
-  { ditto "$MOUNT/SoundCraft.app" "$COPY/SoundCraft.app" &&
-    codesign --verify --strict --deep --verbose=2 "$COPY/SoundCraft.app"; } || dmg_ok=0
+  { ditto "$MOUNT/FreeANDIY Sound.app" "$COPY/FreeANDIY Sound.app" &&
+    codesign --verify --strict --deep --verbose=2 "$COPY/FreeANDIY Sound.app"; } || dmg_ok=0
 fi
 if [ "$dmg_ok" = 1 ] && [ "$NOTARIZE" = 1 ]; then
-  spctl --assess --type execute -vvv "$COPY/SoundCraft.app" || dmg_ok=0
+  spctl --assess --type execute -vvv "$COPY/FreeANDIY Sound.app" || dmg_ok=0
 fi
-[ "$dmg_ok" = 1 ] || xattr -lr "$MOUNT/SoundCraft.app" >&2 || true
+[ "$dmg_ok" = 1 ] || xattr -lr "$MOUNT/FreeANDIY Sound.app" >&2 || true
 hdiutil_retry detach detach "$MOUNT" >/dev/null || dmg_ok=0
 rm -rf "$COPY"
 if [ "$dmg_ok" != 1 ]; then
-  echo "error: SoundCraft.app in $(basename "$DMG") fails strict verification" >&2
+  echo "error: FreeANDIY Sound.app in $(basename "$DMG") fails strict verification" >&2
   exit 1
 fi
 if [ "$NOTARIZE" = 1 ]; then
@@ -192,17 +192,17 @@ fi
 
 # ---- CLI ---------------------------------------------------------------------------------------
 echo "==> building $CLI_ZIP"
-CLI_DIR="$WORK/soundcraft-cli-$VERSION-macos-$ARCH"
+CLI_DIR="$WORK/freeandiy-sound-cli-$VERSION-macos-$ARCH"
 mkdir -p "$CLI_DIR"
-cp "$WORK/bin/soundcraft-cli" "$CLI_DIR/"
+cp "$WORK/bin/freeandiy-sound-cli" "$CLI_DIR/"
 copy_docs "$CLI_DIR"
-sign --options runtime "$CLI_DIR/soundcraft-cli"
-codesign --verify --strict --verbose=2 "$CLI_DIR/soundcraft-cli"
+sign --options runtime "$CLI_DIR/freeandiy-sound-cli"
+codesign --verify --strict --verbose=2 "$CLI_DIR/freeandiy-sound-cli"
 rm -f "$CLI_ZIP"
 ditto -c -k --keepParent "$CLI_DIR" "$CLI_ZIP"
 # A bare Mach-O can't carry a stapled ticket; Gatekeeper looks the notarization up online.
 if [ "$NOTARIZE" = 1 ]; then notarize "$CLI_ZIP"; fi
 
-"$WORK/bin/soundcraft-cli" --version
+"$WORK/bin/freeandiy-sound-cli" --version
 echo "==> done"
 ls -lh "$DMG" "$CLI_ZIP"

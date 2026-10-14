@@ -2,17 +2,17 @@
 <!-- AppStream metadata (software centres, Flathub). Template: package.sh and the Flatpak
      manifest substitute @VERSION@ and @DATE@ from Cargo.toml and the build date. -->
 <component type="desktop-application">
-  <id>ai.storyteller.soundcraft</id>
+  <id>agency.freeandy.sound</id>
   <metadata_license>CC0-1.0</metadata_license>
   <project_license>MIT OR Apache-2.0</project_license>
-  <name>SoundCraft</name>
+  <name>FreeANDIY Sound</name>
   <summary>Record, edit and mix audio and MIDI</summary>
-  <developer id="ai.storyteller">
+  <developer id="agency.freeandy">
     <name>Learning Machines LLC</name>
   </developer>
   <description>
     <p>
-      SoundCraft is an open-source, native digital audio workstation. Record, edit and mix
+      FreeANDIY Sound is an open-source, native digital audio workstation. Record, edit and mix
       multitrack audio and MIDI in Edit and Mix windows that work the way studio engineers expect.
     </p>
     <ul>
@@ -23,13 +23,13 @@
       <li>A headless command line and an MCP server for scripting and agents</li>
     </ul>
   </description>
-  <launchable type="desktop-id">ai.storyteller.soundcraft.desktop</launchable>
-  <icon type="stock">ai.storyteller.soundcraft</icon>
+  <launchable type="desktop-id">agency.freeandy.sound.desktop</launchable>
+  <icon type="stock">agency.freeandy.sound</icon>
   <!-- Only url types known to appstream 0.15 (Ubuntu 22.04, where CI validates): no vcs-browser. -->
-  <url type="homepage">https://getartcraft.com/apps/soundcraft</url>
-  <url type="bugtracker">https://github.com/storytold/soundcraft/issues</url>
-  <url type="help">https://github.com/storytold/soundcraft</url>
-  <url type="contact">https://discord.gg/artcraft</url>
+  <url type="homepage">https://freeandiy.freeandy.agency/sound</url>
+  <url type="bugtracker">https://github.com/FreeAndy21/freeandiy-sound/issues</url>
+  <url type="help">https://github.com/FreeAndy21/freeandiy-sound</url>
+  <url type="contact">https://github.com/FreeAndy21/freeandiy-sound/issues</url>
   <categories>
     <category>AudioVideo</category>
     <category>Audio</category>
@@ -53,8 +53,8 @@
     <control>pointing</control>
   </supports>
   <provides>
-    <binary>soundcraft</binary>
-    <mediatype>application/x-soundcraft-session</mediatype>
+    <binary>freeandiy-sound</binary>
+    <mediatype>application/x-freeandiy-sound-session</mediatype>
   </provides>
   <content_rating type="oars-1.1"/>
   <releases>

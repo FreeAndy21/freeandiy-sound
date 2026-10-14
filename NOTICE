@@ -3,9 +3,9 @@ Copyright (c) 2026 ArtCraft Team and the SoundCraft contributors.
 Licensed under the MIT License or the Apache License, Version 2.0, at your option
 (LICENSE-MIT, LICENSE-APACHE).
 
-The ArtCraft name, wordmark and logos in docs/brand/ are trademarks of the ArtCraft Team. They are
-not open source and are not covered by the license above; their terms are in
-docs/brand/LICENSE-brand.txt.
+The ArtCraft name, wordmark and logos are trademarks of the ArtCraft Team. They are not open
+source and are not covered by the license above. As their terms require of modified versions,
+the FreeANDIY fork has removed them (upstream's docs/brand/ directory is not part of this tree).
 
 Third-party material
 
@@ -15,3 +15,26 @@ list (author, source, license) is in ATTRIBUTION.md.
 None: every bundled asset is original to SoundCraft. Icons are drawn in code; demo audio is
 synthesised in code. The egui default fonts (Ubuntu-Light, Hack, Noto Emoji, Emoji Icon Font) ship
 inside the egui crate under their own open licenses (see ATTRIBUTION.md).
+
+-------------------------------------------------------------------------------------------------
+FreeANDIY Sound
+
+FreeANDIY Sound is a modified version of SoundCraft, made by Free Andy Agency
+(https://freeandy.agency). FreeANDIY is not affiliated with, sponsored or endorsed by the ArtCraft
+Team.
+Modifications Copyright (c) 2026 Free Andy Agency, licensed like SoundCraft under the MIT License
+or the Apache License, Version 2.0, at your option.
+
+Changed files (Apache-2.0 section 4(b)): FreeANDIY's changes are generated from the freeandiy/
+directory by freeandiy/tools/rebrand: the patches in freeandiy/patches/, the text rules in
+freeandiy/rules.toml and the files copied from freeandiy/. Every file that differs from upstream
+SoundCraft is listed by `git diff upstream-main main --stat`, and CHANGELOG-FREEANDIY.md
+summarises the changes. New files carry a "Modified-by: FreeANDIY" header where their format
+allows comments.
+
+The FreeANDIY and Free Andy Agency names, the angel Andy, the lettering, logotypes, seal and app
+icons are protected by copyright, are the property of Free Andy Agency and are NOT covered by
+the licenses above; see freeandiy/assets/brand/LICENSE-brand.txt.
+
+FreeANDIY bundles IBM Plex Sans and IBM Plex Mono (IBM Corp.) and Roboto (The Roboto Project
+Authors) under the SIL Open Font License 1.1; see freeandiy/assets/fonts/OFL-*.txt.
