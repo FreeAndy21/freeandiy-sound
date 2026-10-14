@@ -1,0 +1,83 @@
+diff --git a/crates/ui-egui/src/fonts.rs b/crates/ui-egui/src/fonts.rs
+index 46d50ba..ef391a7 100644
+--- a/crates/ui-egui/src/fonts.rs
++++ b/crates/ui-egui/src/fonts.rs
+@@ -127,6 +127,7 @@ pub fn definitions() -> FontDefinitions {
+             family.push("system-hangul".into());
+         }
+     }
++    crate::freeandiy::ui_fonts(&mut fonts);
+     fonts
+ }
+ 
+diff --git a/crates/ui-egui/src/lib.rs b/crates/ui-egui/src/lib.rs
+index ddd5427..c9fbb31 100644
+--- a/crates/ui-egui/src/lib.rs
++++ b/crates/ui-egui/src/lib.rs
+@@ -12,6 +12,7 @@ pub mod docking;
+ pub mod edit_window;
+ pub mod extra_windows;
+ pub mod fonts;
++pub mod freeandiy;
+ pub mod icons;
+ pub mod menus;
+ pub mod midi_editor;
+diff --git a/crates/ui-egui/src/panels.rs b/crates/ui-egui/src/panels.rs
+index dda31ce..70ad177 100644
+--- a/crates/ui-egui/src/panels.rs
++++ b/crates/ui-egui/src/panels.rs
+@@ -609,12 +609,17 @@ fn about(app: &mut SoundApp, ctx: &egui::Context) {
+             1 => crate::credits::contributors_ui(ui),
+             2 => crate::credits::models_ui(ui),
+             _ => {
+-                ui.label(egui::RichText::new("SoundCraft").font(bold(22.0)));
++                ui.horizontal(|ui| {
++                    crate::freeandiy::mark(ui, 40.0);
++                    ui.label(egui::RichText::new("SoundCraft").font(bold(22.0)));
++                });
+                 ui.label(format!("Version {}", env!("CARGO_PKG_VERSION")));
+-                ui.label("An open-source digital audio workstation from the ArtCraft team.");
++                ui.label("An open-source digital audio workstation.");
+                 ui.label("Dual-licensed MIT OR Apache-2.0. Made with Rust and egui.");
+                 ui.hyperlink_to("getartcraft.com/apps/soundcraft", "https://getartcraft.com/apps/soundcraft");
+-                ui.hyperlink_to("Join us on Discord", "https://discord.gg/artcraft");
++                ui.hyperlink_to("Report a problem on GitHub", "https://github.com/storytold/soundcraft/issues");
++                ui.add_space(8.0);
++                crate::freeandiy::about_attribution(ui);
+             }
+         }
+     });
+diff --git a/crates/ui-egui/src/theme.rs b/crates/ui-egui/src/theme.rs
+index 0cf5b9b..46d5193 100644
+--- a/crates/ui-egui/src/theme.rs
++++ b/crates/ui-egui/src/theme.rs
+@@ -213,7 +213,11 @@ pub struct Tokens {
+ }
+ 
+ impl Tokens {
+-    pub const DARK: Tokens = Tokens {
++    /// FreeANDIY restyles upstream's palettes in `crate::freeandiy::tokens`.
++    pub const DARK: Tokens = crate::freeandiy::tokens(Self::UPSTREAM_DARK, true);
++    pub const LIGHT: Tokens = crate::freeandiy::tokens(Self::UPSTREAM_LIGHT, false);
++
++    const UPSTREAM_DARK: Tokens = Tokens {
+         window_bg: Color32::from_rgb(30, 30, 30),
+         panel_bg: Color32::from_rgb(37, 37, 38),
+         panel_bg2: Color32::from_rgb(44, 44, 45),
+@@ -298,7 +302,7 @@ impl Tokens {
+         slot_mark: Color32::from_rgb(159, 159, 159),
+     };
+ 
+-    pub const LIGHT: Tokens = Tokens {
++    const UPSTREAM_LIGHT: Tokens = Tokens {
+         window_bg: Color32::from_rgb(184, 186, 190),
+         panel_bg: Color32::from_rgb(204, 206, 210),
+         panel_bg2: Color32::from_rgb(216, 218, 222),
+@@ -466,6 +470,7 @@ pub fn apply(ctx: &egui::Context, light: bool) {
+     v.widgets.inactive.fg_stroke.color = t.text;
+     v.window_corner_radius = egui::CornerRadius::same(6);
+     v.menu_corner_radius = egui::CornerRadius::same(4);
++    crate::freeandiy::visuals(&mut v);
+     // Keep receiving native OS appearance changes even when our palette is manual. On macOS,
+     // pinning egui's theme also pins the window appearance and hides later OS changes.
+     ctx.set_theme(egui::ThemePreference::System);

@@ -1,0 +1,33 @@
+diff --git a/apps/soundcraft-cli/Cargo.toml b/apps/soundcraft-cli/Cargo.toml
+index fad22e1..5aa6168 100644
+--- a/apps/soundcraft-cli/Cargo.toml
++++ b/apps/soundcraft-cli/Cargo.toml
+@@ -6,8 +6,9 @@ edition.workspace = true
+ license.workspace = true
+ publish = false
+ 
++# FreeANDIY: the executable carries the product name; the package keeps upstream's.
+ [[bin]]
+-name = "soundcraft-cli"
++name = "freeandiy-sound-cli"
+ path = "src/main.rs"
+ 
+ [lints]
+diff --git a/apps/soundcraft/Cargo.toml b/apps/soundcraft/Cargo.toml
+index 0f30c7a..b60bd17 100644
+--- a/apps/soundcraft/Cargo.toml
++++ b/apps/soundcraft/Cargo.toml
+@@ -5,7 +5,12 @@ version.workspace = true
+ edition.workspace = true
+ license.workspace = true
+ publish = false
+-default-run = "soundcraft"
++default-run = "freeandiy-sound"
++
++# FreeANDIY: the executable carries the product name; the package keeps upstream's.
++[[bin]]
++name = "freeandiy-sound"
++path = "src/main.rs"
+ 
+ [lints]
+ workspace = true

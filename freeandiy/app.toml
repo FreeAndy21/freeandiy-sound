@@ -1,0 +1,26 @@
+# This repository's FreeANDIY settings (branding.toml is shared by all FreeANDIY repositories).
+# Modified-by: FreeANDIY (Free Andy Agency), 2026. New file, not part of upstream SoundCraft.
+
+app = "sound" # which [apps.<id>] entry of branding.toml this repository builds
+
+[build]
+# cargo arguments for the release binaries, the tests sync-upstream.sh runs, and the web page.
+bins = "-p soundcraft -p soundcraft-cli"
+features = ""
+tests = "-p soundcraft-ui-egui -p soundcraft-engine -p soundcraft -p soundcraft-cli"
+web_index = "apps/soundcraft-web/index.html"
+# Environment for tests (e.g. force the English UI) and for packaging/web/package.sh.
+test_env = "SOUNDCRAFT_NO_SYSTEM_FONTS=1"
+web_env = ""
+# Executables checked for upstream branding (default: <repo> <repo>-cli).
+# exes = ""
+
+[check]
+# check-branding.sh: extra allowed strings (regex) and Rust paths where the upstream name may stay
+# in string literals (git pathspecs, space-separated).
+allow = ""
+rs_exclude = ":!xtask/**"
+
+[msi]
+# New component GUIDs for the FreeANDIY MSI (upstream's second component).
+guid2 = "6EC5B698-5662-4A39-AEF3-C57BB6B02360"
