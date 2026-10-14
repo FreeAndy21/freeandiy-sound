@@ -10,8 +10,11 @@ features = ""
 tests = "-p soundcraft-ui-egui -p soundcraft-engine -p soundcraft -p soundcraft-cli"
 web_index = "apps/soundcraft-web/index.html"
 # Environment for tests (e.g. force the English UI) and for packaging/web/package.sh.
-test_env = "SOUNDCRAFT_NO_SYSTEM_FONTS=1"
+test_env = ""
 web_env = ""
+# Upstream runs its checks through ArtCraft's shared workflows, which this fork drops: our
+# freeandiy.yml runs the tests.
+ci_tests = "true"
 # Executables checked for upstream branding (default: <repo> <repo>-cli).
 # exes = ""
 
