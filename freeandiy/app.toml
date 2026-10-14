@@ -17,8 +17,9 @@ web_env = ""
 
 [check]
 # check-branding.sh: extra allowed strings (regex) and Rust paths where the upstream name may stay
-# in string literals (git pathspecs, space-separated).
-allow = ""
+# in string literals (git pathspecs, space-separated). The plugin-editor Win32 window classes are
+# internal identifiers no user sees.
+allow = "SoundCraft(Clap|Vst3)Editor"
 rs_exclude = ":!xtask/**"
 
 [msi]
