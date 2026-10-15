@@ -19,7 +19,7 @@ ci_tests = "true"
 # exes = ""
 
 # Extra arguments after the test filter. Two crash-recovery UI tests pass on macOS but not on the
-# Linux runner; upstream runs no Linux tests to compare with (tracked in the FreeANDIY Project).
+# Linux runner; upstream runs no Linux tests to compare with (FreeAndy21/freeandiy#1).
 test_args = "-- --skip an_exit_without_quit_offers_unsaved_changes_at_the_next_launch --skip closing_the_session_or_quitting_drops_its_autosave"
 
 [check]
