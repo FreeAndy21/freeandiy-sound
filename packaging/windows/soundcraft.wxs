@@ -37,6 +37,7 @@
 
     <Feature Id="Main" Title="FreeANDIY Sound" Level="1">
       <ComponentGroupRef Id="SoundcraftFiles" />
+      <ComponentGroupRef Id="FreeandiyNotices" />
     </Feature>
   </Package>
 
@@ -86,6 +87,13 @@
       <Component Id="SoundcraftCli" Guid="6EC5B698-5662-4A39-AEF3-C57BB6B02360">
         <File Id="SoundcraftCliExe" Source="$(var.BinDir)\freeandiy-sound-cli.exe" KeyPath="yes" />
       </Component>
+    </ComponentGroup>
+  </Fragment>
+  <!-- FreeANDIY: licences, NOTICE, attribution, font licences and brand terms (Apache-2.0 4(d)),
+       staged by package.ps1. -->
+  <Fragment>
+    <ComponentGroup Id="FreeandiyNotices" Directory="INSTALLFOLDER">
+      <Files Include="$(var.NoticesDir)\*" />
     </ComponentGroup>
   </Fragment>
 </Wix>
