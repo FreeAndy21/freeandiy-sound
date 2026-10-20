@@ -7,7 +7,7 @@
 
 <p align="center">
   <b>A free, open-source digital audio workstation. Native Rust, runs on macOS, Windows, Linux, FreeBSD and in the browser.</b><br>
-  Part of <a href="https://freeandiy.freeandy.agency">FreeANDIY</a>, free creative and office apps by Free Andy Agency.
+  Part of <a href="https://freeandiy-web.vercel.app">FreeANDIY</a>, free creative and office apps by Free Andy Agency.
 </p>
 
 ---
