@@ -14,7 +14,7 @@ section: sound
 priority: optional
 maintainer: ${SOUNDCRAFT_MAINTAINER}
 vendor: Free Andy Agency
-homepage: https://freeandiy.freeandy.agency/sound
+homepage: https://freeandiy-web.vercel.app/sound
 license: MIT OR Apache-2.0
 description: |-
   Open-source, native digital audio workstation. Record, edit and mix

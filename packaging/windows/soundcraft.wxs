@@ -26,8 +26,8 @@
 
     <Icon Id="SoundcraftIcon.ico" SourceFile="$(var.IconPath)" />
     <Property Id="ARPPRODUCTICON" Value="SoundcraftIcon.ico" />
-    <Property Id="ARPURLINFOABOUT" Value="https://freeandiy.freeandy.agency/sound" />
-    <Property Id="ARPURLUPDATEINFO" Value="https://freeandiy.freeandy.agency/sound" />
+    <Property Id="ARPURLINFOABOUT" Value="https://freeandiy-web.vercel.app/sound" />
+    <Property Id="ARPURLUPDATEINFO" Value="https://freeandiy-web.vercel.app/sound" />
     <Property Id="ARPHELPLINK" Value="https://github.com/FreeAndy21/freeandiy-sound/issues" />
 
     <StandardDirectory Id="ProgramFiles6432Folder">

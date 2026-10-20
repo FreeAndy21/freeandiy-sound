@@ -616,7 +616,7 @@ fn about(app: &mut SoundApp, ctx: &egui::Context) {
                 ui.label(format!("Version {}", env!("CARGO_PKG_VERSION")));
                 ui.label("An open-source digital audio workstation.");
                 ui.label("Dual-licensed MIT OR Apache-2.0. Made with Rust and egui.");
-                ui.hyperlink_to("freeandiy.freeandy.agency/sound", "https://freeandiy.freeandy.agency/sound");
+                ui.hyperlink_to("freeandiy-web.vercel.app/sound", "https://freeandiy-web.vercel.app/sound");
                 ui.hyperlink_to("Report a problem on GitHub", "https://github.com/FreeAndy21/freeandiy-sound/issues");
                 ui.add_space(8.0);
                 crate::freeandiy::about_attribution(ui);
